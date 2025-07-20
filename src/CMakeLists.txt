@@ -1,2 +1,2 @@
-add_subdirectory(sample_library)
+add_subdirectory(portfolio_lib)
 add_subdirectory(ftxui_sample)

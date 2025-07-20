@@ -1,4 +1,4 @@
-#include <portfolio_optimizer/sample_library.hpp>
+#include <portfolio_optimizer/portfolio_lib.hpp>
 
 int factorial(int input) noexcept
 {

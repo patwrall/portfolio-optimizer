@@ -34,7 +34,7 @@ target_link_libraries(
   tests
   PRIVATE portfolio_optimizer::portfolio_optimizer_warnings
           portfolio_optimizer::portfolio_optimizer_options
-          portfolio_optimizer::sample_library
+          portfolio_optimizer::portfolio_lib
           Catch2::Catch2WithMain)
 
 if(WIN32 AND BUILD_SHARED_LIBS)
@@ -66,7 +66,7 @@ target_link_libraries(
   constexpr_tests
   PRIVATE portfolio_optimizer::portfolio_optimizer_warnings
           portfolio_optimizer::portfolio_optimizer_options
-          portfolio_optimizer::sample_library
+          portfolio_optimizer::portfolio_lib
           Catch2::Catch2WithMain)
 
 catch_discover_tests(
@@ -89,7 +89,7 @@ target_link_libraries(
   relaxed_constexpr_tests
   PRIVATE portfolio_optimizer::portfolio_optimizer_warnings
           portfolio_optimizer::portfolio_optimizer_options
-          portfolio_optimizer::sample_library
+          portfolio_optimizer::portfolio_lib
           Catch2::Catch2WithMain)
 target_compile_definitions(relaxed_constexpr_tests PRIVATE -DCATCH_CONFIG_RUNTIME_STATIC_REQUIRE)
 

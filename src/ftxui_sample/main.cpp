@@ -330,7 +330,8 @@ void game_iteration_canvas()
 int main(int argc, const char **argv)
 {
   try {
-    CLI::App app{ fmt::format("{} version {}", portfolio_optimizer::cmake::project_name, portfolio_optimizer::cmake::project_version) };
+    CLI::App app{ fmt::format(
+      "{} version {}", portfolio_optimizer::cmake::project_name, portfolio_optimizer::cmake::project_version) };
 
     std::optional<std::string> message;
     app.add_option("-m,--message", message, "A message to print back out");

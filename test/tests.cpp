@@ -1,7 +1,7 @@
 #include <catch2/catch_test_macros.hpp>
 
 
-#include <portfolio_optimizer/sample_library.hpp>
+#include <portfolio_optimizer/portfolio_lib.hpp>
 
 
 TEST_CASE("Factorials are computed", "[factorial]")
