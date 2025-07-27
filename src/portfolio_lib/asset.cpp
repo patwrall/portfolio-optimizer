@@ -3,6 +3,7 @@
 #include <mutex>
 #include <portfolio_optimizer/asset.hpp>
 #include <stdexcept>
+#include <vector>
 
 void Asset::AddPrice(std::time_t date, double price) { historicalData_.insert({ date, price }); }
 
