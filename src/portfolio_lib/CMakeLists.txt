@@ -1,7 +1,7 @@
 include(GenerateExportHeader)
 
 
-add_library(portfolio_lib portfolio_lib.cpp)
+add_library(portfolio_lib portfolio_lib.cpp asset.cpp)
 
 
 
