@@ -3,6 +3,7 @@
 
 #include <ctime>
 #include <map>
+#include <mutex>
 #include <portfolio_optimizer/portfolio_lib_export.hpp>
 #include <string>
 #include <vector>
@@ -13,11 +14,11 @@ class PORTFOLIO_LIB_EXPORT Asset
 private:
   std::string symbol_;
 
-  std::map<std::time_t, double> historical_data_;
+  std::map<std::time_t, double> historicalData_;
 
-  mutable std::vector<double> daily_returns_;
+  mutable std::vector<double> dailyReturns_;
 
-  mutable bool returns_calculated_ = false;
+  mutable std::once_flag returnsCalculatedFlag_;
 
   void CalculateReturnsInternal() const;
 
@@ -28,7 +29,7 @@ public:
 
   const std::string &GetSymbol() const { return symbol_; }
 
-  const std::map<std::time_t, double> &GetPrices() const { return historical_data_; }
+  const std::map<std::time_t, double> &GetPrices() const { return historicalData_; }
 
   const std::vector<double> &GetDailyReturns() const;
 };

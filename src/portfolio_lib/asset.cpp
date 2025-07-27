@@ -1,33 +1,33 @@
 #include <ctime>
 #include <map>
+#include <mutex>
 #include <portfolio_optimizer/asset.hpp>
 #include <stdexcept>
 
-void Asset::AddPrice(std::time_t date, double price) { historical_data_.insert({ date, price }); }
+void Asset::AddPrice(std::time_t date, double price) { historicalData_.insert({ date, price }); }
 
 
 const std::vector<double> &Asset::GetDailyReturns() const
 {
-  if (!returns_calculated_) { CalculateReturnsInternal(); }
+  std::call_once(returnsCalculatedFlag_, &Asset::CalculateReturnsInternal, this);
 
-  return daily_returns_;
+  return dailyReturns_;
 }
 
 void Asset::CalculateReturnsInternal() const
 {
-  if (historical_data_.size() < 2) {
-    daily_returns_.clear();
-    returns_calculated_ = true;
+  if (historicalData_.size() < 2) {
+    dailyReturns_.clear();
     return;
   }
 
-  daily_returns_.reserve(historical_data_.size() - 1);
+  dailyReturns_.reserve(historicalData_.size() - 1);
 
-  auto itr = historical_data_.begin();
+  auto itr = historicalData_.begin();
   auto prev_itr = itr;
   ++itr;
 
-  for (; itr != historical_data_.end(); ++itr, ++prev_itr) {
+  for (; itr != historicalData_.end(); ++itr, ++prev_itr) {
     const double prev_price = prev_itr->second;
     const double curr_price = itr->second;
 
@@ -35,9 +35,7 @@ void Asset::CalculateReturnsInternal() const
       throw std::runtime_error("Error: Previous price is zero, cannot calculate return for asset " + symbol_);
     }
 
-    const double daily_return = (curr_price - prev_price) / prev_price;
-    daily_returns_.push_back(daily_return);
+    const double dailyReturn = (curr_price - prev_price) / prev_price;
+    dailyReturns_.push_back(dailyReturn);
   }
-
-  returns_calculated_ = true;
 }
