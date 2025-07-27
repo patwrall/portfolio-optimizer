@@ -2,7 +2,6 @@
 #include <exception>
 #include <fmt/base.h>
 #include <fmt/format.h>
-#include <optional>
 
 
 #include <CLI/CLI.hpp>
@@ -21,11 +20,11 @@ int main(int argc, const char **argv)
     CLI::App app{ fmt::format(
       "{} version {}", portfolio_optimizer::cmake::project_name, portfolio_optimizer::cmake::project_version) };
 
-    std::optional<std::string> message;
-    app.add_option("-m,--message", message, "A message to print back out");
     bool show_version = false;
     app.add_flag("--version", show_version, "Show version information");
 
+    std::string data_directory = "data";
+    app.add_flag("--data-dir", data_directory, "Path to data containing asset CSV files");
 
     CLI11_PARSE(app, argc, argv);
 
@@ -34,7 +33,9 @@ int main(int argc, const char **argv)
       return EXIT_SUCCESS;
     }
 
-
+    // load assets
+    // calculate from loaded assets
+    // display effecient fronttier
   } catch (const std::exception &e) {
     spdlog::error("Unhandled exception in main: {}", e.what());
   }
